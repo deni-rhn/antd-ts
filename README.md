@@ -22,6 +22,6 @@
 
 
 *Copyright Deni, 2019*
-Author: Deni Rahmanto
-Email: denirhmnt@gmail.com
+**Author** Deni Rahmanto
+**Email** denirhmnt@gmail.com
 
