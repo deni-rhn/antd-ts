@@ -7,6 +7,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import MasterUnit from './master-unit/master-unit';
 import MasterLokasiForm from '../component/master-lokasi-form/master-lokasi-form';
 import MasterUnitForm from '../component/master-unit-form/master-unit-form';
+import Test from './test';
 
 const { Content, Footer } = Layout;
 
@@ -25,6 +26,7 @@ class Home extends Component {
 
                             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
                                 <Fragment>
+                                    <Route path='/' exact  component={Test}/>
                                     <Route path='/master-unit' exact component={MasterUnit} />
                                     <Route path='/master-lokasi' exact component={MasterLokasi} />
                                     <Route path='/new-master-lokasi' exact component={MasterLokasiForm} />
