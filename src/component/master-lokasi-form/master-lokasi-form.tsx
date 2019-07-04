@@ -38,11 +38,9 @@ export class MasterLokasiForm extends Component<any, any> {
                         })(<Input minLength={1} maxLength={6} />)}
                     </Form.Item>
                     <Form.Item label="Address">
-                        {getFieldDecorator('unit', {
-                        rules: [{ required: true, message: 'Please input your address!' }],
-                        })(
+                        
                             <TextArea rows={4} />,
-                        )}
+                        
                     </Form.Item>
                     <Form.Item wrapperCol={{ span: 12, offset: 5 }}>
                         <Button type="primary" htmlType="submit">
