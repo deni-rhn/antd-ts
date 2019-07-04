@@ -50,6 +50,7 @@ class MasterUnitForm extends Component<any, any> {
                                 minLength={1} 
                                 maxLength={6}
                                 onChange={this.handleInput('code')}
+                                value={this.state.code}
                                 type="text"
                                 name="code" 
                                 required
