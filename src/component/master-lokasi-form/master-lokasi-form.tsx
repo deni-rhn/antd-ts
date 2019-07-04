@@ -30,12 +30,12 @@ export class MasterLokasiForm extends Component<any, any> {
                     <Form.Item label="Name">
                         {getFieldDecorator('name', {
                         rules: [{ required: true, message: 'Please input your name!' }],
-                        })(<Input />)}
+                        })(<Input minLength={3} maxLength={20} />)}
                     </Form.Item>
                     <Form.Item label="Code">
                         {getFieldDecorator('code', {
                         rules: [{ required: true, message: 'Please input your code!' }],
-                        })(<Input />)}
+                        })(<Input minLength={1} maxLength={6} />)}
                     </Form.Item>
                     <Form.Item label="Address">
                         {getFieldDecorator('unit', {
