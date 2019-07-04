@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import { Form, Select, Input, Button } from 'antd';
 
-const { TextArea } = Input;
+const { Option } = Select;
 
 export class MasterLokasiForm extends Component<any, any> {
     handleSubmit = (e: any) => {
@@ -37,10 +37,16 @@ export class MasterLokasiForm extends Component<any, any> {
                         rules: [{ required: true, message: 'Please input your code!' }],
                         })(<Input minLength={1} maxLength={6} />)}
                     </Form.Item>
-                    <Form.Item label="Address">
-                        
-                            <TextArea rows={4} />,
-                        
+                    <Form.Item label="Master Unit">
+                        {getFieldDecorator('unit', {
+                        rules: [{ required: true, message: 'Please select your unit!' }],
+                        })(
+                        <Select placeholder="Select a option and change input text above"
+                            onChange={this.handleSelectChange}>
+                            <Option value="master-unit-1">master-unit-1</Option>
+                            <Option value="master-unit-2">master-unit-2</Option>
+                        </Select>,
+                        )}
                     </Form.Item>
                     <Form.Item wrapperCol={{ span: 12, offset: 5 }}>
                         <Button type="primary" htmlType="submit">
