@@ -1,17 +1,17 @@
-import { ADD_POST, REMOVE_POST, UPDATE_POST } from '../actions/index';
+import { ADD_POST, REMOVE_POST, UPDATE_POST } from '../actions/unit/index';
 
 const initialState: any = [];
 
-export default function Post(state = initialState, action:any) {
+export default function PostUnit(state = initialState, action:any) {
     switch (action.type) {
         case ADD_POST:
             return [
                 ...state,
                 {
                     id: action.id,
-                    name: action.name,
-                    code: action.code,
-                    address: action.address
+                    nameUnit: action.nameUnit,
+                    codeUnit: action.codeUnit,
+                    unit: action.unit
                 }
             ];
         case REMOVE_POST:

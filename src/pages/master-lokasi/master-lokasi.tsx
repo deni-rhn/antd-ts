@@ -1,11 +1,11 @@
 import React, {Component, Fragment} from 'react';
-import { Table, Divider, Button } from 'antd';
+import { Table, Button, Input } from 'antd';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actions from '../../actions/index';
 import MasterLokasiModal from '../../shared/modals/master-lokasi-modal/master-lokasi-modal';
 
-const { Column } = Table;
+const { Search } = Input;
 
 class MasterLokasi extends Component<any, any> {
     
@@ -15,7 +15,8 @@ class MasterLokasi extends Component<any, any> {
         code:"",
         address:"",
         key:"",
-        status:""
+        status:"",
+        allData:[]
     }
 
     column = [
@@ -98,24 +99,28 @@ class MasterLokasi extends Component<any, any> {
             this.setState( {visible:false} );
         }
 
+        find = (e: any) => {
+            let arr: any = [];
+            if(e.target.value !== ""){
+                this.props.allPosts.forEach((x:any, r:any) => {
+                    if(x.name.search(e.target.value) > 1){
+                        arr.push(r);
+                    }
+                    this.setState({allPosts:arr});
+                });
+            }else{
+                this.setState({allData: this.props.allPosts});
+            }
+        }
+
       
     render() {
         return(
             <Fragment>
-                <Link className="btn-primary-right" to='/new-master-lokasi' >Add New </Link>
-                {/* <Table dataSource={this.props.allPosts}>
-                    <Column title="Name" dataIndex="name" key="name" />
-                    <Column title="Code" dataIndex="code" key="code" />
-                    <Column title="Address" dataIndex="address" key="address" />
-                    <Column title="Action" key="action" render={(text, record: any)=> (
-                        <span>
-                            <a href="javascript:;">Edit</a>
-                            <Divider type="vertical" />
-                            <a onClick={() => this.removePost()}>Delete</a>
-                        </span>
-                        )}
-                        />
-                </Table> */}
+                <div style={{display:'flex'}}>
+                    <Search placeholder="search" onChange={this.find} />
+                    <Link className="btn-primary-right" to='/new-master-lokasi' >Add New </Link>
+                </div>
                 <MasterLokasiModal
                     visible={this.state.visible}
                     update={this.submitUpdate}

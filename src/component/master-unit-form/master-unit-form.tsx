@@ -1,14 +1,12 @@
 import React, {Component, Fragment} from 'react';
 import { Form, Select, Input, Button } from 'antd';
-import * as actions from '../../actions/index';
+import * as actions from '../../actions/unit/index';
 import {connect} from 'react-redux';
+import item from '../list/item';
+import { Redirect } from 'react-router';
 
 const { TextArea } = Input;
 const { Option } = Select;
-
-interface data {
-    masterLok: any;
-}
 
 class MasterUnitForm extends Component<any, any> {
     constructor(props: any) {
@@ -17,8 +15,9 @@ class MasterUnitForm extends Component<any, any> {
         this.state = {
             nameUnit: "",
             codeUnit: "",
-            master:""
-        };
+            unitUnit:"",
+            fireRedirect: false
+        };        
     }
 
 
@@ -30,19 +29,20 @@ class MasterUnitForm extends Component<any, any> {
 
     handleSelectChange = (value: any) => {
         console.log(value);
-        this.props.form.setFieldsValue({
-            note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`,
-        });
     };
 
 
     handleSubmit = (e: any) => {
         e.preventDefault();
-        this.props.addPost(this.state.name, this.state.code, this.state.address);
+        this.props.addPostUnit(this.state.nameUnit, this.state.codeUnit, this.state.unit);
         console.log(this.state);
     };
 
-    render() {
+
+
+    render() { 
+        // const { from } = this.props.location.state || '/'
+        // const { fireRedirect } = this.state
 
         return(
             <Fragment>
@@ -52,9 +52,9 @@ class MasterUnitForm extends Component<any, any> {
                         <Input 
                                 minLength={3} 
                                 maxLength={20} 
-                                onChange={this.handleInput('name')}
+                                onChange={this.handleInput('nameUnit')}
                                 type="text"
-                                value={this.state.name}
+                                value={this.state.nameUnit}
                                 name="name" 
                                 required
                         />
@@ -63,25 +63,24 @@ class MasterUnitForm extends Component<any, any> {
                         <Input 
                                 minLength={1} 
                                 maxLength={6}
-                                onChange={this.handleInput('code')}
-                                value={this.state.code}
+                                onChange={this.handleInput('codeUnit')}
+                                value={this.state.codeUnit}
                                 type="text"
                                 name="code" 
                                 required
                         />
                     </Form.Item>
-                    <Form.Item label="Address">
+                    <Form.Item label="Master Unit">
                         
                             <TextArea 
                                     rows={4}
-                                    onChange={this.handleInput('address')}
-                                    value={this.state.address} />,
+                                    onChange={this.handleInput('unit')}
+                                    value={this.state.unit} />,
 
                         {/* <Select placeholder="Select a option and change input text above"
                             onChange={this.handleSelectChange}>
-                            <Option value="master-unit-1">master-unit-1</Option>
-                            <Option value="master-unit-2">master-unit-2</Option>
-                        </Select>,  */}
+                            <Option value="test">test</Option>
+                        </Select>  */}
                         
                     </Form.Item>
                     <Form.Item wrapperCol={{ span: 12, offset: 5 }}>
@@ -90,6 +89,9 @@ class MasterUnitForm extends Component<any, any> {
                         </Button>
                     </Form.Item>
                 </Form>
+                {/* {fireRedirect && (
+                    <Redirect to={from || '/master-unit'}/>
+                )} */}
             </Fragment>
         );
     }
@@ -97,14 +99,14 @@ class MasterUnitForm extends Component<any, any> {
 
 const toProps = (state: any) => {
     return {
-        masterLok: state.masterLokasi
+        allPosts : state.allPosts
     }
 }
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        addPost: (name:string, code:string, address:string) => {
-            dispatch(actions.addPost(name, code, address));
+        addPostUnit: (nameUnit:string, codeUnit:string, unit:string) => {
+            dispatch(actions.addPostUnit(nameUnit, codeUnit, unit));
         }
     };
 };

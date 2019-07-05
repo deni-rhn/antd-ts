@@ -60,7 +60,7 @@ export class MasterLokasiForm extends Component<any, any> {
                             required 
                         />
                     </Form.Item>
-                    <Form.Item label="Master Unit">
+                    <Form.Item label="Address">
                         
                         <TextArea 
                             rows={4}
