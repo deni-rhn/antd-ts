@@ -7,9 +7,6 @@ import MasterLokasiModal from '../../shared/modals/master-lokasi-modal/master-lo
 
 const { Column } = Table;
 
-interface lokasi {
-    master: any;
-}
 class MasterLokasi extends Component<any, any> {
     
     state = {
@@ -18,8 +15,7 @@ class MasterLokasi extends Component<any, any> {
         code:"",
         address:"",
         key:"",
-        status:"",
-        allData:[]
+        status:""
     }
 
     column = [
