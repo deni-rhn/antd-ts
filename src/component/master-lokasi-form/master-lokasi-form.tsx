@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import { Form, Select, Input, Button } from 'antd';
 import * as actions from '../../actions/index';
 import {connect} from 'react-redux';
+import { Redirect } from 'react-router';
 
 const { TextArea } = Input;
 
@@ -12,7 +13,8 @@ export class MasterLokasiForm extends Component<any, any> {
         this.state = {
             name: "",
             code: "",
-            address: ""
+            address: "",
+            fireRedirect: false
         };
     }
 
@@ -24,10 +26,13 @@ export class MasterLokasiForm extends Component<any, any> {
     handleSubmit = (e: any) => {
         e.preventDefault();
         this.props.addPost(this.state.name, this.state.code, this.state.address);
+        this.setState({ fireRedirect: true });
         console.log(this.state);
     };
 
     render() {
+        const { from } = this.props.location.state || '/'
+        const { fireRedirect } = this.state
 
         return(
             <Fragment>
@@ -70,6 +75,9 @@ export class MasterLokasiForm extends Component<any, any> {
                         </Button>
                     </Form.Item>
                 </Form>
+                {fireRedirect && (
+                    <Redirect to={from || '/master-lokasi'}/>
+                )}
             </Fragment>
         );
     }

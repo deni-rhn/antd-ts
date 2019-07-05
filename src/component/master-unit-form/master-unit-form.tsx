@@ -72,16 +72,16 @@ class MasterUnitForm extends Component<any, any> {
                     </Form.Item>
                     <Form.Item label="Address">
                         
-                            {/* <TextArea 
+                            <TextArea 
                                     rows={4}
                                     onChange={this.handleInput('address')}
-                                    value={this.state.address} />, */}
+                                    value={this.state.address} />,
 
-                        <Select placeholder="Select a option and change input text above"
+                        {/* <Select placeholder="Select a option and change input text above"
                             onChange={this.handleSelectChange}>
                             <Option value="master-unit-1">master-unit-1</Option>
                             <Option value="master-unit-2">master-unit-2</Option>
-                        </Select>, 
+                        </Select>,  */}
                         
                     </Form.Item>
                     <Form.Item wrapperCol={{ span: 12, offset: 5 }}>
