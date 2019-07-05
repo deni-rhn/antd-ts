@@ -1,37 +1,17 @@
 import React, {Component, Fragment} from 'react';
 import { Table, Divider } from 'antd';
 import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
 
 const { Column } = Table;
 
-const data = [
-    {
-      key: '1',
-      name: 'John',
-      code: 32,
-      address: 'New York No. 1 Lake Park',
-    },
-    {
-      key: '2',
-      name: 'Jim',
-      code: 42,
-      address: 'London No. 1 Lake Park',
-    },
-    {
-      key: '3',
-      name: 'Joe',
-      code: 32,
-      address: 'Sidney No. 1 Lake Park',
-    },
-];
-
-class MasterLokasi extends Component {
+class MasterLokasi extends Component<any, any> {
       
     render() {
         return(
             <Fragment>
                 <Link className="btn-primary-right" to='/new-master-lokasi' >Add New </Link>
-                <Table dataSource={data}>
+                <Table dataSource={this.props.allPosts}>
                     <Column title="Name" dataIndex="name" key="name" />
                     <Column title="Code" dataIndex="code" key="code" />
                     <Column title="Address" dataIndex="address" key="address" />
@@ -49,4 +29,13 @@ class MasterLokasi extends Component {
     }
 }
 
-export default MasterLokasi;
+const mapStateToProps = (state:any) => {
+    return {
+        allPosts: state.post
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    null
+)(MasterLokasi);

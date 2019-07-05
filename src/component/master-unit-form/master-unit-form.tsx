@@ -1,25 +1,40 @@
 import React, {Component, Fragment} from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Select, Input, Button } from 'antd';
 import * as actions from '../../actions/index';
 import {connect} from 'react-redux';
 
 const { TextArea } = Input;
+const { Option } = Select;
+
+interface data {
+    masterLok: any;
+}
 
 class MasterUnitForm extends Component<any, any> {
     constructor(props: any) {
         super(props);
 
         this.state = {
-            name: "",
-            code: "",
-            address: ""
+            nameUnit: "",
+            codeUnit: "",
+            master:""
         };
     }
+
+
 
     handleInput = (field:string) => (ev:any) => {
         this.setState({ [field]: ev.target.value });
         console.log(this.state);
     }
+
+    handleSelectChange = (value: any) => {
+        console.log(value);
+        this.props.form.setFieldsValue({
+            note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`,
+        });
+    };
+
 
     handleSubmit = (e: any) => {
         e.preventDefault();
@@ -28,7 +43,6 @@ class MasterUnitForm extends Component<any, any> {
     };
 
     render() {
-        // const { getFieldDecorator } = this.props.form;
 
         return(
             <Fragment>
@@ -58,10 +72,16 @@ class MasterUnitForm extends Component<any, any> {
                     </Form.Item>
                     <Form.Item label="Address">
                         
-                            <TextArea 
+                            {/* <TextArea 
                                     rows={4}
                                     onChange={this.handleInput('address')}
-                                    value={this.state.address} />,
+                                    value={this.state.address} />, */}
+
+                        <Select placeholder="Select a option and change input text above"
+                            onChange={this.handleSelectChange}>
+                            <Option value="master-unit-1">master-unit-1</Option>
+                            <Option value="master-unit-2">master-unit-2</Option>
+                        </Select>, 
                         
                     </Form.Item>
                     <Form.Item wrapperCol={{ span: 12, offset: 5 }}>
@@ -75,6 +95,12 @@ class MasterUnitForm extends Component<any, any> {
     }
 }
 
+const toProps = (state: any) => {
+    return {
+        masterLok: state.masterLokasi
+    }
+}
+
 const mapDispatchToProps = (dispatch: any) => {
     return {
         addPost: (name:string, code:string, address:string) => {
@@ -84,8 +110,6 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 export default connect(
-    null,
+    toProps,
     mapDispatchToProps 
 )(MasterUnitForm);
-
-// export default Form.create()(MasterUnitForm);

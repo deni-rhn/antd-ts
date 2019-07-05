@@ -1,52 +1,68 @@
 import React, {Component, Fragment} from 'react';
 import { Form, Select, Input, Button } from 'antd';
+import * as actions from '../../actions/index';
+import {connect} from 'react-redux';
 
-const { Option } = Select;
+const { TextArea } = Input;
 
 export class MasterLokasiForm extends Component<any, any> {
+    constructor(props:any) {
+        super(props);
+
+        this.state = {
+            name: "",
+            code: "",
+            address: ""
+        };
+    }
+
+    handleInput = (field:string) => (ev:any) => {
+        this.setState({ [field]: ev.target.value });
+        console.log(this.state);
+    }
+
     handleSubmit = (e: any) => {
         e.preventDefault();
-        this.props.form.validateFields((err:any, values:any) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
-        });
-    };
-
-    handleSelectChange = (value: any) => {
-        console.log(value);
-        this.props.form.setFieldsValue({
-            note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`,
-        });
+        this.props.addPost(this.state.name, this.state.code, this.state.address);
+        console.log(this.state);
     };
 
     render() {
-        const { getFieldDecorator } = this.props.form;
 
         return(
             <Fragment>
                 <h3 className="text-center">Add Data For Master Lokasi</h3>
                 <Form labelCol={{ span: 5 }} wrapperCol={{ span: 12 }} onSubmit={this.handleSubmit}>
                     <Form.Item label="Name">
-                        {getFieldDecorator('name', {
-                        rules: [{ required: true, message: 'Please input your name!' }],
-                        })(<Input minLength={3} maxLength={20} />)}
+                        <Input 
+                            minLength={3} 
+                            maxLength={20} 
+                            onChange={this.handleInput('name')}
+                            type="text"
+                            value={this.state.name}
+                            name="name" 
+                            required
+                        />
                     </Form.Item>
                     <Form.Item label="Code">
-                        {getFieldDecorator('code', {
-                        rules: [{ required: true, message: 'Please input your code!' }],
-                        })(<Input minLength={1} maxLength={6} />)}
+                        <Input 
+                            minLength={1} 
+                            maxLength={6}
+                            onChange={this.handleInput('code')}
+                            value={this.state.code}
+                            type="text"
+                            name="code" 
+                            required 
+                        />
                     </Form.Item>
                     <Form.Item label="Master Unit">
-                        {getFieldDecorator('unit', {
-                        rules: [{ required: true, message: 'Please select your unit!' }],
-                        })(
-                        <Select placeholder="Select a option and change input text above"
-                            onChange={this.handleSelectChange}>
-                            <Option value="master-unit-1">master-unit-1</Option>
-                            <Option value="master-unit-2">master-unit-2</Option>
-                        </Select>,
-                        )}
+                        
+                        <TextArea 
+                            rows={4}
+                            onChange={this.handleInput('address')}
+                            value={this.state.address}
+                        />,
+
                     </Form.Item>
                     <Form.Item wrapperCol={{ span: 12, offset: 5 }}>
                         <Button type="primary" htmlType="submit">
@@ -59,4 +75,21 @@ export class MasterLokasiForm extends Component<any, any> {
     }
 }
 
-export default Form.create()(MasterLokasiForm);
+const storeToProps = (state: any) => {
+    return {
+        master: state.masterLokasi
+    }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        addPost: (name:string, code:string, address:string) => {
+            dispatch(actions.addPost(name, code, address));
+        }
+    };
+};
+
+export default connect(
+    storeToProps,
+    mapDispatchToProps 
+)(MasterLokasiForm);
