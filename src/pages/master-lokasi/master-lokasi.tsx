@@ -7,6 +7,9 @@ import MasterLokasiModal from '../../shared/modals/master-lokasi-modal/master-lo
 
 const { Search } = Input;
 
+interface lokasi {
+    master: any;
+}
 class MasterLokasi extends Component<any, any> {
     
     state = {
